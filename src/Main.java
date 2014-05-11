@@ -1,4 +1,5 @@
 import com.gmail.robmadeyou.plugin.Activator;
+import com.gmail.robmadeyou.plugin.message.SmartString;
 
 /**
  * Created by rob on 10/05/14.
@@ -19,13 +20,16 @@ public class Main extends Activator {
     public void init() {
     }
 
-    @Override
     public void onActivation() {
-        out("What would you like me to schedule for you?");
+        out("What would you like me to do for you?");
         lock();
-        out("I can do many things");
-        getInput();
-        out("Okay, that was good");
-        unlock();
+        String nextLine = getInput();
+        String name;
+        if(SmartString.containsOneOf(nextLine, "add", "new")){
+            out("Alright, let's add a new task. What would you like it to be called?");
+            name = getInput();
+            out("Okay, so: " + SmartString.dotify(name));
+            out("And when would you like me to notify you?");
+        }
     }
 }
